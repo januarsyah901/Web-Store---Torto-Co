@@ -20,8 +20,10 @@
             <div class="section-menu-left">
                 <div class="box-logo">
                     <a href="{{ route('admin.index') }}" id="site-logo-inner">
-                        <img class="" id="logo_header" alt="" src='{{asset("images/logo/logo.png") }}'
-                             data-light="images/logo/logo.png" data-dark="images/logo/logo.png" width="40px">
+                        <img class="" id="logo_header" alt="Logo Torto & Co" src='{{asset("images/logo/logo.png") }}'
+                             data-light='{{asset("images/logo/logo.png") }}'
+                             data-dark='{{asset("images/logo/logo.png") }}'
+                             srcset="{{asset("images/logo/logo.png") }}">
                     </a>
                     <div class="button-show-hide">
                         <i class="icon-menu-left"></i>
@@ -71,7 +73,7 @@
                                         </a>
                                     </li>
                                     <li class="sub-menu-item">
-                                        <a href="brands.html" class="">
+                                        <a href="{{ route('admin.brands') }}" class="">
                                             <div class="text">Brands</div>
                                         </a>
                                     </li>
@@ -149,10 +151,11 @@
                 <div class="header-dashboard">
                     <div class="wrap">
                         <div class="header-left">
-                            <a href="index-2.html">
+                            <a href="{{ route('admin.index') }}" id="site-logo-inner">
                                 <img class="" id="logo_header_mobile" alt="" src='{{asset("images/logo/logo.png") }}'
                                      data-light="images/logo/logo.png" data-dark="images/logo/logo.png"
-                                     data-width="140px" data-height="52px" data-retina="images/logo/logo.png" width="40px">
+                                     data-width="140px" data-height="52px" data-retina="images/logo/logo.png"
+                                     width="40px">
                             </a>
                             <div class="button-show-hide">
                                 <i class="icon-menu-left"></i>
@@ -312,7 +315,8 @@
                                                 <div>
                                                     <div class="body-title-2">Discount available</div>
                                                     <div class="text-tiny">Morbi sapien massa, ultricies at rhoncus
-                                                        at, ullamcorper nec diam</div>
+                                                        at, ullamcorper nec diam
+                                                    </div>
                                                 </div>
                                             </div>
                                         </li>
@@ -324,7 +328,8 @@
                                                 <div>
                                                     <div class="body-title-2">Account has been verified</div>
                                                     <div class="text-tiny">Mauris libero ex, iaculis vitae rhoncus
-                                                        et</div>
+                                                        et
+                                                    </div>
                                                 </div>
                                             </div>
                                         </li>
@@ -336,7 +341,8 @@
                                                 <div>
                                                     <div class="body-title-2">Order shipped successfully</div>
                                                     <div class="text-tiny">Integer aliquam eros nec sollicitudin
-                                                        sollicitudin</div>
+                                                        sollicitudin
+                                                    </div>
                                                 </div>
                                             </div>
                                         </li>
@@ -356,8 +362,6 @@
                                     </ul>
                                 </div>
                             </div>
-
-
 
 
                             <div class="popup-wrap user type-header">
@@ -412,7 +416,8 @@
                                         <li>
                                             <form action="{{ route('logout') }}" method="post" id="logout-form">
                                                 @csrf
-                                                <a href="#" class="user-item"   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                                <a href="#" class="user-item"
+                                                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                                     <div class="icon">
                                                         <i class="icon-log-out"></i>
                                                     </div>

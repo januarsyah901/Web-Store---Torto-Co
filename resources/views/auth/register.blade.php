@@ -38,9 +38,9 @@
                         </div>
                         <div class="pb-3"></div>
                         <div class="form-floating mb-3">
-                            <input id="mobile" type="text" class="form-control form-control_gray @error('mobile') is-invalid @enderror" name="mobile" value="{{ old('mobile') }}" required autocomplete="mobile">
-                            <label for="mobile">Mobile *</label>
-                            @error('mobile')
+                            <input id="phone" type="text" class="form-control form-control_gray @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" required autocomplete="phone">
+                            <label for="phone">Phone *</label>
+                            @error('phone')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>

@@ -38,42 +38,44 @@
                     <div class="wg-table table-all-user">
                         <div class="table-responsive">
                             @if(session('success'))
-                                <div class="alert alert-success">
+                                <div class="alert alert-success fs-4">
                                     {{ session('success') }}
                                 </div>
                             @endif
                             <table class="table table-striped table-bordered">
                                 <thead>
                                 <tr>
-                                    <th>#</th>
-                                    <th>Name</th>
-                                    <th>Slug</th>
-                                    <th>Products</th>
-                                    <th>Action</th>
+                                    <th style="width: 70px; text-align: center; vertical-align: middle;">#</th>
+                                    <th style="text-align: center; vertical-align: middle;">Slug</th>
+                                    <th style="width: 550px;text-align: center; vertical-align: middle;">Name</th>
+                                    <th style="text-align: center; vertical-align: middle;">Products</th>
+                                    <th style="text-align: center; vertical-align: middle;">Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($brands as $brand)
                                 <tr>
-                                    <td>{{ $brand->id }}</td>
-                                    <td class="pname">
+                                    <td style="width: 70px; text-align: center; vertical-align: middle;">{{ $brand->id }}</td>
+                                    <td style="text-align: center; vertical-align: middle;">{{ $brand->slug }}</td>
+                                    <td class="name  flex justify-center items-center" style="width: 550px;">
                                         <div class="image">
                                             <img src="{{ asset('uploads/brands/') }}/{{ $brand->image }}" alt="{{ $brand->name }}" class="image">
                                         </div>
-                                        <div class="name">
+                                        <div class="name flex justify-center items-center">
                                             <a href="#" class="body-title-2">{{ $brand->name }}</a>
                                         </div>
                                     </td>
-                                    <td>{{ $brand->slug }}</td>
-                                    <td><a href="#" target="_blank">1</a></td>
+                                    <td style="text-align: center; vertical-align: middle;"><a href="#" target="_blank">1</a></td>
                                     <td>
-                                        <div class="list-icon-function">
-                                            <a href="#">
+                                        <div class="list-icon-function " style="justify-content: center;">
+                                            <a href="{{ route('admin.edit_brand', ['id' => $brand->id]) }}">
                                                 <div class="item edit">
                                                     <i class="icon-edit-3"></i>
                                                 </div>
                                             </a>
-                                            <form action="#" method="POST">
+                                            <form action="{{ route('admin.delete_brand' , ['id' => $brand->id]) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
                                                 <div class="item text-danger delete">
                                                     <i class="icon-trash-2"></i>
                                                 </div>
@@ -95,3 +97,25 @@
             </div>
         </div>
 @endsection
+
+@push('scripts')
+    <script>
+        $(function() {
+            $('.delete').on('click', function(e) {
+                e.preventDefault();
+                var form = $(this).closest('form');
+                swal({
+                    title: "Are you sure?",
+                    text: "You want to delete this record?",
+                    type: "warning",
+                    buttons: ["No", "Yes"],
+                    confirmButtonColor: "#dc3545"
+                }).then(function(result) {
+                    if (result) {
+                        form.submit();
+                    }
+                });
+            });
+        });
+    </script>
+@endpush

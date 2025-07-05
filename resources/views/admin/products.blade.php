@@ -3,10 +3,10 @@
     <div class="main-content-inner">
         <div class="main-content-wrap">
             <div class="flex items-center flex-wrap justify-between gap20 mb-27">
-                <h3>Categories</h3>
+                <h3>All Products</h3>
                 <ul class="breadcrumbs flex items-center flex-wrap justify-start gap10">
                     <li>
-                        <a href="{{ route('admin.index') }}">
+                        <a href="{{ route('admin.index') }}" class="flex items-center gap5">
                             <div class="text-tiny">Dashboard</div>
                         </a>
                     </li>
@@ -14,7 +14,7 @@
                         <i class="icon-chevron-right"></i>
                     </li>
                     <li>
-                        <div class="text-tiny">Category</div>
+                        <div class="text-tiny">All Products</div>
                     </li>
                 </ul>
             </div>
@@ -32,43 +32,60 @@
                             </div>
                         </form>
                     </div>
-                    <a class="tf-button style-1 w208" href="{{ route('admin.add_category') }}"><i
+                    <a class="tf-button style-1 w208" href="{{ route('admin.add_product') }}"><i
                             class="icon-plus"></i>Add new</a>
                 </div>
-                <div class="wg-table table-all-user">
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered">
                         <thead>
-                        <tr>
+                        <tr >
                             <th style="width: 70px; text-align: center; vertical-align: middle;">#</th>
-                            <th style="text-align: center; vertical-align: middle;">Slug</th>
-                            <th style="width: 550px;text-align: center; vertical-align: middle;">Name</th>
-                            <th style="text-align: center; vertical-align: middle;">Products</th>
-                            <th style="text-align: center; vertical-align: middle;">Action</th>
+                            <th class="text-center">Name</th>
+                            <th class="text-center">Price</th>
+                            <th class="text-center">SalePrice</th>
+                            <th class="text-center">SKU</th>
+                            <th class="text-center">Category</th>
+                            <th class="text-center">Brand</th>
+                            <th class="text-center">Featured</th>
+                            <th class="text-center">Stock</th>
+                            <th class="text-center">Quantity</th>
+                            <th class="text-center" style="width: 130px; vertical-align: middle;">Action</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($categories as $c)
-                            <tr>
+                            @foreach($products as $p)
+                            <tr >
                                 <td style="width: 70px; text-align: center; vertical-align: middle;">{{ $loop->iteration }}</td>
-                                <td style="text-align: center; vertical-align: middle;">{{ $c->slug }}</td>
-                                <td class="name flex justify-center items-center" style="width: 550px;">
+                                <td class="">
                                     <div class="image">
-                                        <img src="{{ asset('uploads/categories/') }}/{{ $c->image }}" alt="{{ $c->name }}" class="image">
+                                        <img src="{{ asset('uploads/products') }}/{{ $p->image }}" alt="{{ $p->name }}" class="image">
                                     </div>
-                                    <div class="name flex justify-center items-center" style="margin-left: 12px;">
-                                        <a href="#" class="body-title-2">{{ $c->name }}</a>
+                                    <div class="name">
+                                        <a href="#" class="body-title-2">{{ $p->name }}</a>
+                                        <div class="text-tiny mt-3">{{ $p->slug }}</div>
                                     </div>
                                 </td>
-                                <td style="text-align: center; vertical-align: middle;"><a href="#" target="_blank">1</a></td>
-                                <td>
-                                    <div class="list-icon-function " style="justify-content: center;">
-                                        <a href="{{ route('admin.edit_category', ['id' => $c->id]) }}">
+                                <td class="text-center">${{ number_format($p->regular_price, 2) }}</td>
+                                <td class="text-center">${{ number_format($p->sale_price, 2) }}</td>
+                                <td class="text-center">{{ $p->SKU }}</td>
+                                <td class="text-center">{{ $p->category->name ?? '' }}</td>
+                                <td class="text-center">{{ $p->brand->name ?? '' }}</td>
+                                <td class="text-center">{{ $p->featured ? 'Yes' : 'No' }}</td>
+                                <td class="text-center">{{ $p->stock_status }}</td>
+                                <td class="text-center">{{ $p->quantity }}</td>
+                                <td class="text-center align-middle">
+                                    <div class="list-icon-function d-flex justify-content-center align-items-center gap-3">
+                                        <a href="#" target="_blank">
+                                            <div class="item eye">
+                                                <i class="icon-eye"></i>
+                                            </div>
+                                        </a>
+                                        <a href="{{ route('admin.edit_product', ['id' => $p->id]) }}">
                                             <div class="item edit">
                                                 <i class="icon-edit-3"></i>
                                             </div>
                                         </a>
-                                        <form action="{{ route('admin.delete_category' , ['id' => $c->id]) }}" method="POST">
+                                        <form action="{{ route('admin.delete_product' , ['id' => $p->id]) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <div class="item text-danger delete">
@@ -78,15 +95,14 @@
                                     </div>
                                 </td>
                             </tr>
-                        @endforeach
-
+                            @endforeach
                         </tbody>
                     </table>
-                    </div>
                 </div>
+
                 <div class="divider"></div>
                 <div class="flex items-center justify-between flex-wrap gap10 wgp-pagination">
-
+                    {{ $products->links('pagination::bootstrap-5') }}
                 </div>
             </div>
         </div>
@@ -119,7 +135,7 @@
                 var form = $(this).closest('form');
                 swal({
                     title: "Are you sure?",
-                    text: "You want to delete this category?",
+                    text: "You want to delete this product?",
                     type: "warning",
                     buttons: ["No", "Yes"],
                     confirmButtonColor: "#dc3545"

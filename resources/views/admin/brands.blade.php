@@ -50,7 +50,7 @@
                             <tbody>
                             @foreach($brands as $brand)
                             <tr>
-                                <td style="width: 70px; text-align: center; vertical-align: middle;">{{ $brand->id }}</td>
+                                <td style="width: 70px; text-align: center; vertical-align: middle;">{{ $loop->iteration }}</td>
                                 <td style="text-align: center; vertical-align: middle;">{{ $brand->slug }}</td>
                                 <td class="name  flex justify-center items-center" style="width: 550px;">
                                     <div class="image">

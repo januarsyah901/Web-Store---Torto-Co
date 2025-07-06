@@ -204,6 +204,7 @@ class AdminController extends Controller
             'description' => 'required',
             'short_description' => 'nullable|max:500',
             'regular_price' => 'required|numeric',
+            'sale_price' => 'nullable|numeric|lt:regular_price',
             'SKU' => 'required|max:100',
             'stock_status' => 'required|in:instock,outofstock',
             'quantity' => 'required|integer|min:0',
